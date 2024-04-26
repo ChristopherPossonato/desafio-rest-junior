@@ -1,0 +1,43 @@
+version: '2.24.6'
+services:
+  backend:
+    build: back_end
+    image: christopher2p/backend:1.0
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/basedesafio
+      SPRING_DATASOURCE_USERNAME: ChristopherPossonato
+      SPRING_DATASOURCE_PASSWORD: Pneumo25*
+    volumes:
+      - backend-data:/app/data
+    networks:
+      - mynetwork
+
+
+  frontend:
+    build: front_end
+    image: christopher2p/frontend:1.0
+    ports:
+      - "8080:80"
+    networks:
+      - mynetwork
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: Pneumo25*
+      MYSQL_DATABASE: basedesafio
+      MYSQL_USER: ChristopherPossonato
+      MYSQL_PASSWORD: Pneumo25*
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+
+volumes:
+  backend-data:
+  mysql-data:
